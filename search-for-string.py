@@ -1,5 +1,7 @@
 import os
 import argparse
+from time import sleep
+from tqdm import tqdm
 
 parser = argparse.ArgumentParser()
 
@@ -25,10 +27,12 @@ if args.search is None:
 def files(file_path, search_query):
 	for files in os.listdir(args.filepath):
 		if files.endswith('.txt'):
-			with open(args.filepath+files, 'r') as openfile:
+			with open(args.filepath+files, 'r', encoding='utf8') as openfile:
+				num_lines = sum(1 for line in open(args.filepath+files, 'r'))
 				for line in openfile:
-					if search_query in line:
-						print(openfile)
-						print(line)
+					for line in tqdm(openfile, total=num_lines):
+						if search_query in line:
+							print(openfile)
+							print(line)
 
 files(args.filepath, args.search)
