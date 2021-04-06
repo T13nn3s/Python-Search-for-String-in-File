@@ -24,6 +24,9 @@ if args.search is None:
 		'Plese specify your search query (-s).'
 	)
 
+# Clear terminal
+os.system('cls' if os.name == 'nt' else 'clear')
+
 def files(file_path, search_query):
 	for files in os.listdir(args.filepath):
 		if files.endswith('.txt'):
